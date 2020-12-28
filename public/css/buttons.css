@@ -1,22 +1,28 @@
 body {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
 }
 
 #buttonGridContainer {
-  flex: 1;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  justify-content: space-around;
-  align-content: stretch;
-  align-items: stretch;
-  flex-flow: row wrap;
+    flex: 1;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-flow: row wrap;
+    padding: 5px;
 }
 
 .gridButton {
-  margin: 5px;
-  min-width: 150px;
-  min-height: 150px;
+    max-width: 100px;
+    min-height: 100px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.toggledButton {
+    border: 10px solid lightgreen !important;
 }

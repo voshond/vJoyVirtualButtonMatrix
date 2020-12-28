@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon app"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,6 +12,12 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
+    "mustache": "^4.1.0",
+    "nunjucks": "^3.2.2",
+    "robotjs": "^0.6.0",
     "vjoy": "^1.2.1"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,css,html"
   }
 }

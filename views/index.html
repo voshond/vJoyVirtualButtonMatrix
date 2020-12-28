@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,19 @@
         <script src="js/main.js"></script>
         <script src="js/button.js"></script>
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/groups.css">
         <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="css/sliders.css">
     </head>
 
     <body>
         <div id="buttonGridContainer">
+            {{buttons|safe}}
+        </div>
 
+        <div id="sliderContainer">
+            {{sliders|safe}}
         </div>
     </body>
+
 </html>

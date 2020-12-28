@@ -1,0 +1,30 @@
+{
+    "general": {
+        "amount": 1,
+        "port": 3000
+    },
+    "overwrites": [
+        {"id": 1, "content": "" }
+    ],
+    "vjoy": {
+        "deviceId": 1
+    },
+    "default": {
+        "id": "",
+        "type": "toggle",
+        "content": "Default Button",
+        "group": "default",
+        "style": {
+            "min-width": "100px",
+            "min-height": "100px",
+            "border-radius": "5px",
+            "background-color": "",
+            "color": "",
+            "font-style": "",
+            "font-size": "1em",
+            "font-weight": "bold",
+            "border": "1px solid #000000",
+            "flex": ""
+        }
+    }
+}
