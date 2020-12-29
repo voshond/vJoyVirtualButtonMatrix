@@ -11,16 +11,14 @@ input[type=range]:focus {
 
 input[type=range]::-webkit-slider-runnable-track {
     background: #00ff9e;
-    border: 0.1px solid #010101;
     width: 100%;
-    height: 20.3px;
+    height: 100px;
     cursor: pointer;
 }
 
 input[type=range]::-webkit-slider-thumb {
-    margin-top: -7.95px !important;
-    width: 36px !important;
-    height: 36px !important;
+    width: 20px !important;
+    height: 100px !important;
     background: #ffffff;
     border: 1px solid #000000 !important;
     cursor: pointer;
@@ -33,15 +31,14 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 
 input[type=range]::-moz-range-track {
     background: #00ff9e;
-    border: 0.1px solid #010101;
     width: 100%;
-    height: 20.3px;
+    height: 100px;
     cursor: pointer;
 }
 
 input[type=range]::-moz-range-thumb {
-    width: 36px !important;
-    height: 36px !important;
+    width: 20px !important;
+    height: 100px !important;
     background: #ffffff !important;
     border: 1px solid #000000;
     cursor: pointer;
@@ -53,7 +50,7 @@ input[type=range]::-ms-track {
     border-width: 7.85px 0;
     color: transparent;
     width: 100%;
-    height: 20.3px;
+    height: 100.3px;
     cursor: pointer;
 }
 
@@ -68,8 +65,8 @@ input[type=range]::-ms-fill-upper {
 }
 
 input[type=range]::-ms-thumb {
-    width: 36px !important;
-    height: 36px !important;
+    width: 20 !important;
+    height: 100px !important;
     background: #ffffff !important;
     border: 1px solid #000000 !important;
     cursor: pointer;
@@ -96,8 +93,19 @@ input[type=range]:focus::-ms-fill-upper {
     }
 }
 
-.verticalSlider {
+.slider {
+    /*
     writing-mode: bt-lr !important;
-    /* IE */
     -webkit-appearance: slider-vertical !important;
+    */
+    transform: rotate(-90deg);
+    transform-origin: right;
+    position: absolute;
+    right: 100px;
+}
+
+#sliderContainer {
+    position: relative;
+    min-width: 100px;
+    height: 100%;
 }

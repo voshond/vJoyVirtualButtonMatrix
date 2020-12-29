@@ -1,8 +1,7 @@
 const fs = require('fs');
 const { vJoy, vJoyDevice } = require('vjoy');
 const express = require('express');
-const buttonGenerator = require('./buttonGenerator.js');
-const sliderGenerator = require('./sliderGenerator.js');
+const inputRender = require('./inputRender.js');
 const nunjucks = require('nunjucks');
 const app = express();
 const path = require('path');
@@ -48,6 +47,7 @@ nunjucks.configure('views', {
     express: app
 });
 
+/* 
 let groups = {};
 [...new Set(userConfig.customButtons.map(item => {
     return item.group;
@@ -55,18 +55,23 @@ let groups = {};
     groups[filter] = userConfig.customButtons.filter(item => item.group === filter);
 });
 
-let buttons = buttonGenerator(groups.default.concat(groups.shipcontrol));
-let defaultB = buttonGenerator(groups.default);
-let shipcontrol = buttonGenerator(groups.shipcontrol);
-let sliders = sliderGenerator(groups.sliders);
+let buttons = inputRender(groups.default.concat(groups.shipcontrol));
+let defaultB = inputRender(groups.default);
+let shipcontrol = inputRender(groups.shipcontrol);
+let sliders = inputRender(groups.sliders);
+*/
+
+let renderedHTML = inputRender(userConfig.customButtons);
+
+let sliders = userConfig.customButtons.filter(item => item.type === "slider");
 
 // Init Sliders
-groups.sliders.forEach(element => {
+sliders.forEach(element => {
     device.axes[`${element.id}`].set(parseInt(element.range.default));
 });
 
 app.get('/', function (req, res) {
-    res.render('index.html', { buttons, shipcontrol, sliders });
+    res.render('index.html', { renderedButtons: renderedHTML.renderedButtons, renderedSliders: renderedHTML.renderedSliders });
 });
 
 app.post('/button', function (req, res) {
@@ -95,7 +100,7 @@ app.post('/toggle', function (req, res) {
     }
 
     device.buttons[button.id].set(button.state);
-    res.send(JSON.stringify({ status: 200, id: button, state: button.state })); // try res.json() if getList() returns an object or array
+    res.send(JSON.stringify({ status: 200, id: button.id, state: button.state })); // try res.json() if getList() returns an object or array
 });
 
 app.post('/slider', function (req, res) {

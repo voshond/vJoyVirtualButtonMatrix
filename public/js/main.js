@@ -8,8 +8,8 @@ function docReady(fn) {
 
 docReady(function () {
     console.log("Initialized");
-    // createButtonGrid(24);
     assignEventListener();
+    document.body.requestFullscreen();
 });
 
 async function postData(url = '', data = {}) {
@@ -29,76 +29,50 @@ async function postData(url = '', data = {}) {
     return response.json();
 }
 
-function styleToggle(button) {
-
-}
-
 function assignEventListener() {
-    let buttons = document.querySelectorAll(".gridButton");
-    buttons.forEach(button => {
-        let type = button.getAttribute("vjoytype");
+    let inputs = document.querySelectorAll(".input");
+    inputs.forEach(input => {
+        let type = input.getAttribute("vjoytype");
 
         switch (type) {
             case "button":
-                console.log("creating listener for button " + (button.getAttribute("vjoyid")));
-                button.addEventListener("click", function () {
-                    dispatchButtonPress(button.getAttribute("vjoyid"), button.getAttribute("vjoytype"));
+                console.log("creating listener for button " + (input.getAttribute("vjoyid")));
+                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+
+                input.addEventListener("click", function () {
+                    dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
                 });
                 break;
 
             case "toggle":
-                console.log("creating listener for toggle button " + (button.getAttribute("vjoyid")));
-                button.addEventListener("click", function () {
-                    button.classList.toggle("toggledButton");
-                    let state = button.classList.value.includes("toggledButton");
-                    dispatchTogglePress(button.getAttribute("vjoyid"), button.getAttribute("vjoytype"), state);
+                console.log("creating listener for toggle button " + (input.getAttribute("vjoyid")));
+                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), state: input.state });
+
+                input.addEventListener("click", function () {
+                    input.classList.toggle("toggledButton");
+                    input.state = input.classList.value.includes("toggledButton");
+                    dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), state: input.state });
                 });
                 break;
 
             case "slider":
-                console.log("creating listener for slider " + (button.getAttribute("vjoyid")));
-                button.addEventListener("click", function () {
-                    dispatchSliderChange(button.getAttribute("vjoyid"), button.getAttribute("vjoytype"));
-                });
-                break;
+                console.log("creating listener for slider " + (input.getAttribute("vjoyid")));
+                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), value: input.value });
 
-            case "script":
-                console.log("creating listener for slider " + (button.getAttribute("vjoyid")));
-                button.addEventListener("click", function () {
-                    dispatchScriptPress(button.getAttribute("vjoyid"), button.getAttribute("vjoytype"));
+                input.addEventListener("input", function () {
+                    dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), value: input.value });
                 });
                 break;
 
             default:
                 break;
         }
-
-
-    });
-
-    let sliders = document.querySelectorAll(".slider");
-    sliders.forEach(slider => {
-        slider.addEventListener("input", function () {
-            dispatchSliderChange(slider.getAttribute("vjoyid"), slider.getAttribute("vjoytype"), slider.value);
-        });
     });
 };
 
-function dispatchButtonPress(id, type) {
-    postData("/button", { id: id, type: type }).then(res => {
-        console.log(res);
-    });
-};
-
-function dispatchTogglePress(id, type, state) {
-    postData("/toggle", { id: id, type: type, state: state }).then(res => {
-        console.log(res);
-    });
-};
-
-function dispatchSliderChange(id, type, value) {
-    console.log(id);
-    postData("/slider", { id: id, type: type, value: value }).then(res => {
+function dispatchRequest(data) {
+    console.log({ id: data.id, type: data.type, state: data.state, value: data.value });
+    postData(`/${data.type}`, { id: data.id, type: data.type, state: data.state, value: data.value }).then(res => {
         console.log(res);
     });
 };
