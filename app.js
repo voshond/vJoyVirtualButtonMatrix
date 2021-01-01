@@ -52,9 +52,9 @@ if (device == null) {
 
 // setup the express server
 app.listen(process.env.port || userConfig.general.port);
-app.use('/img', express.static(path.join(__dirname, 'public/img')));
-app.use('/js', express.static(path.join(__dirname, 'public/js')));
-app.use('/css', express.static(path.join(__dirname, 'public/css')));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'nunjucks');
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({
     extended: true
 }));
@@ -85,7 +85,12 @@ let sliders = userConfig.customButtons.filter(item => item.type === "slider");
 
 // Init Sliders
 sliders.forEach(element => {
-    device.axes[`${element.id}`].set(parseInt(element.range.default));
+    try {
+        device.axes[`${element.id}`].set(parseInt(element.range.default));
+    } catch (error) {
+
+    }
+
 });
 
 app.get('/', function (req, res) {
