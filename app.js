@@ -90,7 +90,6 @@ sliders.forEach(element => {
     } catch (error) {
 
     }
-
 });
 
 app.get('/', function (req, res) {
@@ -158,6 +157,13 @@ app.post('/hold', function (req, res) {
 app.post("/refresh", function (req, res) {
     console.log("Site has been refreshed/started up, defaulting buttons");
     device.resetButtons();
+    sliders.forEach(element => {
+        try {
+            device.axes[`${element.id}`].set(parseInt(element.range.default));
+        } catch (error) {
+
+        }
+    });
 });
 
 console.log(`Running at ${serverAdress}:${userConfig.general.port} 🚀`);
