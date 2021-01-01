@@ -10,39 +10,38 @@
         <title>Button Matrix</title>
         <script src="js/main.js"></script>
         <script src="js/button.js"></script>
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/groups.css">
-        <link rel="stylesheet" href="css/buttons.css">
-        <link rel="stylesheet" href="css/sliders.css">
-        <link rel="stylesheet" href="css/tabs.css">
+        <link rel="stylesheet" href="styles/buttons.css">
+        <link rel="stylesheet" href="styles/style.css">
     </head>
 
     <body>
-
+        <!-- Internal Storage containing all the user-config button stuff -->
         <div id="storage" style="display: none !important;">{{configStorage|safe}}</div>
 
-        <div class="tabbed">
-            <input type="radio" id="tab21" name="css-tabs2" checked>
-            <input type="radio" id="tab22" name="css-tabs2">
+        <div class="min-h-screen flex items-start bg-black">
+            <!-- padding is important so the sliders can reach the max value -->
+            <div class="flex-1 p-4">
 
-            <ul class="tabs">
-                <li class="tab"><label for="tab21">Group 1</label></li>
-                <li class="tab"><label for="tab22">Group 2</label></li>
-                <li class="tab"><button onClick="window.location.reload();">Refresh Page</button></li>
-            </ul>
-
-            <div class="tab-content">
-                <div id="gridButtonContainer">
+                <h1 class="text-white font-black">Buttons</h1>
+                <div class="grid mt-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-2 grid-flow-row">
                     {{renderedButtons|safe}}
                 </div>
-            </div>
 
-            <div class="tab-content">
-                <div id="sliderContainer">
+                <h1 class="text-white font-black mt-6">Sliders</h1>
+                <div class="grid grid-cols-1 mt-1 grid-flow-row gap-2">
                     {{renderedSliders|safe}}
                 </div>
+
+                <h1 class="text-white font-black mt-6">Debug</h1>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 mt-1 grid-flow-row gap-2">
+                    <button onClick="window.location.reload();"
+                        class="rounded-lg bg-white h-24 p-2 text-md font-bold font-sans">Refresh</button>
+                </div>
+
             </div>
         </div>
+
+
     </body>
 
 </html>
