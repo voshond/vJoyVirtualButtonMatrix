@@ -31241,10 +31241,10 @@ video {
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type="range"]::-webkit-slider-thumb {
-    width: 0px;
+    width: 40px;
     -webkit-appearance: none;
     appearance: none;
-    height: 100%;
+    height: 400px;
     cursor: pointer;
     background: #FFF;
     box-shadow: -2000px 0 0 2000px #605E5C;
