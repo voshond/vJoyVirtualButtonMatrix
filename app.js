@@ -1,7 +1,8 @@
 const fs = require('fs');
 const { vJoy, vJoyDevice } = require('vjoy');
 const express = require('express');
-const inputRender = require('./inputRender.js');
+const inputRender = require('./lib/inputRender.js');
+const groupRender = require('./lib/groupRender.js');
 const nunjucks = require('nunjucks');
 const app = express();
 const path = require('path');
@@ -65,21 +66,9 @@ nunjucks.configure('views', {
     express: app
 });
 
-/* 
-let groups = {};
-[...new Set(userConfig.customButtons.map(item => {
-    return item.group;
-}))].map(filter => {
-    groups[filter] = userConfig.customButtons.filter(item => item.group === filter);
-});
+let renderedGroups = groupRender(userConfig.customButtons);
 
-let buttons = inputRender(groups.default.concat(groups.shipcontrol));
-let defaultB = inputRender(groups.default);
-let shipcontrol = inputRender(groups.shipcontrol);
-let sliders = inputRender(groups.sliders);
-*/
-
-let renderedHTML = inputRender(userConfig.customButtons);
+// let renderedHTML = inputRender(userConfig.customButtons);
 
 let sliders = userConfig.customButtons.filter(item => item.type === "slider");
 
@@ -93,7 +82,7 @@ sliders.forEach(element => {
 });
 
 app.get('/', function (req, res) {
-    res.render('index.html', { renderedButtons: renderedHTML.renderedButtons, renderedSliders: renderedHTML.renderedSliders, configStorage: JSON.stringify(userConfig) });
+    res.render('index.html', { renderedGroups: renderedGroups, configStorage: JSON.stringify(userConfig) });
 });
 
 app.post('/button', function (req, res) {
