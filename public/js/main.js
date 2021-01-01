@@ -129,7 +129,7 @@ function dispatchSequence(input) {
 
                 dispatchRequest({ id: inputData.id, type: inputData.type, value: inputData.value, state: inputData.state });
                 console.log("ran sequence: " + i);
-            }, i * 1000)
+            }, i * 333)
         }
     }, 200);
 };
@@ -146,7 +146,7 @@ function dispatchSubControl(input) {
                 }
 
                 console.log("set subtoggle state: " + i);
-            }, i * 1000)
+            }, i * 333)
         }
     }, 200);
 };
