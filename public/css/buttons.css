@@ -18,16 +18,22 @@ body {
 }
 
 .gridButton {
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     margin-right: 3px;
     border-radius: 9px !important;
 }
 
 .toggledButton {
-    border: 5px solid rgb(27, 131, 228) !important;
-    background-image: repeating-linear-gradient( -45deg, rgba(255, 255, 255, 0.068), #1313131c 5px, rgba(255, 255, 255, 0.068) 5px, #1313131c 10px);
+    border: 5px solid #5ae25aa1 !important;
+    background-image: repeating-linear-gradient( -45deg, #58ec58a1, #58ec58a1 6px, #47cf47a1 6px, #47cf47a1 12px);
+    color: #ffffff;
 }
 
 .gridButton:active {
     border: 5px solid rgb(25, 224, 68) !important;
+}
+
+.gridButton:focus {
+    /* Remove the annoying outline for focus elements */
+    outline:none;
 }

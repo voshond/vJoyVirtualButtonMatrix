@@ -23,6 +23,7 @@ body {
     line-height: 1.5;
     overflow: hidden;
     overscroll-behavior: none !important;
+    background-color: #000000;
 }
 
 html, body {

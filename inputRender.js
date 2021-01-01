@@ -15,6 +15,14 @@ const inputRender = (inputs) => {
                 }
                 break;
 
+            case "hold":
+                if (input.id === "") {
+                    renderedHTML.renderedButtons += `<button class="gridButton input" vjoytype="${input.type}" vjoyid="${i + 1}" style="${styleGenerator(input.style)}">${input.content}</button>`;
+                } else {
+                    renderedHTML.renderedButtons += `<button class="gridButton input" vjoytype="${input.type}" vjoyid="${input.id}" style="${styleGenerator(input.style)}">${input.content}</button>`;
+                }
+                break;
+
             case "toggle":
                 if (input.id === "") {
                     renderedHTML.renderedButtons += `<button class="gridButton input" vjoytype="${input.type}" vjoyid="${i + 1}" style="${styleGenerator(input.style)}">${input.content}</button>`;

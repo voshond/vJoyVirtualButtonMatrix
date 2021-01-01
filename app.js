@@ -7,9 +7,27 @@ const app = express();
 const path = require('path');
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json')));
 const userConfig = JSON.parse(fs.readFileSync(path.join(__dirname, 'user-config.json')));
+const { networkInterfaces } = require('os');
+
+const nets = networkInterfaces();
+const results = Object.create(null); // Or just '{}', an empty object
+
+for (const name of Object.keys(nets)) {
+    for (const net of nets[name]) {
+        // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+        if (net.family === 'IPv4' && !net.internal) {
+            if (!results[name]) {
+                results[name] = [];
+            }
+            results[name].push(net.address);
+        }
+    }
+}
+
+let serverAdress = results["Ethernet"][0];
 
 // create a joystick
-let deviceId = 1;
+let deviceId = userConfig.vJoy.deviceId;
 
 // check if there is a device ID
 if (process.argv.length > 2) {
@@ -33,7 +51,7 @@ if (device == null) {
 }
 
 // setup the express server
-app.listen(process.env.port || config.general.port);
+app.listen(process.env.port || userConfig.general.port);
 app.use('/img', express.static(path.join(__dirname, 'public/img')));
 app.use('/js', express.static(path.join(__dirname, 'public/js')));
 app.use('/css', express.static(path.join(__dirname, 'public/css')));
@@ -71,7 +89,7 @@ sliders.forEach(element => {
 });
 
 app.get('/', function (req, res) {
-    res.render('index.html', { renderedButtons: renderedHTML.renderedButtons, renderedSliders: renderedHTML.renderedSliders });
+    res.render('index.html', { renderedButtons: renderedHTML.renderedButtons, renderedSliders: renderedHTML.renderedSliders, configStorage: JSON.stringify(userConfig) });
 });
 
 app.post('/button', function (req, res) {
@@ -84,12 +102,10 @@ app.post('/button', function (req, res) {
     device.buttons[button.id].set(true); // press the first button
     setTimeout(() => {
         device.buttons[button.id].set(false);
-    }, 300);
+    }, 25);
 
     res.send(JSON.stringify({ status: 200, id: button.id })); // try res.json() if getList() returns an object or array
 });
-
-const toggleButtons = {};
 
 app.post('/toggle', function (req, res) {
     console.log(req.body);
@@ -100,6 +116,9 @@ app.post('/toggle', function (req, res) {
     }
 
     device.buttons[button.id].set(button.state);
+    setTimeout(() => {
+        device.buttons[button.id].set(false);
+    }, 25);
     res.send(JSON.stringify({ status: 200, id: button.id, state: button.state })); // try res.json() if getList() returns an object or array
 });
 
@@ -116,4 +135,24 @@ app.post('/slider', function (req, res) {
     res.send(JSON.stringify({ status: 200, id: slider.id, value: slider.value })); // try res.json() if getList() returns an object or array
 });
 
-console.log('Running at Port 3000 🚀');
+app.post('/hold', function (req, res) {
+    console.log(req.body);
+    let button = {
+        id: req.body.id,
+        type: req.body.type
+    }
+
+    device.buttons[button.id].set(true); // press the first button
+    setTimeout(() => {
+        device.buttons[button.id].set(false);
+    }, 300);
+
+    res.send(JSON.stringify({ status: 200, id: button.id })); // try res.json() if getList() returns an object or array
+});
+
+app.post("/refresh", function (req, res) {
+    console.log("Site has been refreshed/started up, defaulting buttons");
+    device.resetButtons();
+});
+
+console.log(`Running at ${serverAdress}:${userConfig.general.port} 🚀`);

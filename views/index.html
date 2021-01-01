@@ -19,8 +19,7 @@
 
     <body>
 
-
-
+        <div id="storage" style="display: none !important;">{{configStorage|safe}}</div>
 
         <div class="tabbed">
             <input type="radio" id="tab21" name="css-tabs2" checked>
@@ -29,6 +28,7 @@
             <ul class="tabs">
                 <li class="tab"><label for="tab21">Group 1</label></li>
                 <li class="tab"><label for="tab22">Group 2</label></li>
+                <li class="tab"><button onClick="window.location.reload();">Refresh Page</button></li>
             </ul>
 
             <div class="tab-content">

@@ -105,3 +105,6 @@ dist
 
 # User Configuration
 user-config.json
+
+# Personal Stuff
+start-up.*
