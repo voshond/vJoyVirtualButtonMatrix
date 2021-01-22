@@ -11,7 +11,7 @@ let userConfig = {};
 docReady(function () {
     console.log("Initialized");
     userConfig = JSON.parse(document.querySelector("#storage").innerText);
-    console.log(userConfig.customButtons);
+    console.log(userConfig.customInputs);
     assignEventListener();
     postData("/refresh");
 });
@@ -44,9 +44,14 @@ function assignEventListener() {
                 console.log("creating listener for button " + (input.getAttribute("vjoyid")));
                 console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
 
-                // myObj.hasOwnProperty("myProp");
-                let inputData = userConfig.customButtons.find(item => item.id + "" === id + "");
-                if (inputData.hasOwnProperty("sequence") === true) {
+                let inputData = userConfig.customInputs.find(item => item.id + "" === id + "");
+                if (inputData.hasOwnProperty("sequence") === true && inputData.hasOwnProperty("subcontrol") === true) {
+                    input.addEventListener("click", function () {
+                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+                        dispatchSequence(inputData.sequence);
+                        dispatchSubControl(inputData.subcontrol);
+                    });
+                } else if (inputData.hasOwnProperty("sequence") === true) {
                     input.addEventListener("click", function () {
                         dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
                         dispatchSequence(inputData.sequence);
@@ -67,8 +72,7 @@ function assignEventListener() {
                 console.log("creating listener for button " + (input.getAttribute("vjoyid")));
                 console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
 
-                // myObj.hasOwnProperty("myProp");
-                let inputData2 = userConfig.customButtons.find(item => item.id + "" === id + "");
+                let inputData2 = userConfig.customInputs.find(item => item.id + "" === id + "");
                 if (inputData2.hasOwnProperty("sequence") === true) {
                     input.addEventListener("click", function () {
                         dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
@@ -118,18 +122,61 @@ function dispatchSequence(input) {
     setTimeout(() => {
         for (let i = 0; i < input.length; i++) {
             setTimeout(function () {
-                let inputData = userConfig.customButtons.find(item => item.id + "" === input[i].id + "");
+                let inputData = userConfig.customInputs.find(item => item.id + "" === input[i].id + "");
                 inputData.value = input[i].value;
 
-                if (inputData.type === "toggle") {
+                console.log(input[i].type)
+
+                if (input[i].type === "toggle") {
                     let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
-                    renderedInput.classList.toggle("toggledButton");
-                    inputData.state = renderedInput.classList.value.includes("toggledButton");
+
+                    console.log(inputData.type + ", state: " + input[i].state)
+                    switch (input[i].state) {
+                        case undefined:
+                            renderedInput.classList.toggle("toggledButton");
+                            inputData.state = renderedInput.classList.value.includes("toggledButton");
+                            break;
+
+                        case true:
+                            renderedInput.classList.add("toggledButton");
+                            inputData.state = renderedInput.classList.value.includes("toggledButton");
+                            renderedInput.classList.toggle("active");
+                            setTimeout(() => {
+                                renderedInput.classList.toggle("active");
+                            }, 250);
+                            break;
+
+                        case false:
+                            renderedInput.classList.remove("toggledButton");
+                            inputData.state = renderedInput.classList.value.includes("toggledButton");
+                            renderedInput.classList.add("active");
+                            setTimeout(() => {
+                                renderedInput.classList.remove("active");
+                            }, 250);
+                            break;
+
+                        default:
+                            console.log("unhandled input toggle state");
+                            break;
+                    }
+                } else if (input[i].type === "slider") {
+                    let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
+                    renderedInput.value = input[i].value;
+                    renderedInput.classList.toggle("active");
+                    setTimeout(() => {
+                        renderedInput.classList.toggle("active");
+                    }, 100);
+                } else {
+                    let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
+                    renderedInput.classList.toggle("active");
+                    setTimeout(() => {
+                        renderedInput.classList.toggle("active");
+                    }, 100);
                 }
 
-                dispatchRequest({ id: inputData.id, type: inputData.type, value: inputData.value, state: inputData.state });
-                console.log("ran sequence: " + i);
-            }, i * 333)
+                dispatchRequest({ id: "" + inputData.id, type: inputData.type, value: input[i].value, state: inputData.state });
+                console.log("set sequence state: " + i);
+            }, i * 500);
         }
     }, 200);
 };
@@ -138,7 +185,7 @@ function dispatchSubControl(input) {
     setTimeout(() => {
         for (let i = 0; i < input.length; i++) {
             setTimeout(function () {
-                let inputData = userConfig.customButtons.find(item => item.id + "" === input[i].id + "");
+                let inputData = userConfig.customInputs.find(item => item.id + "" === input[i].id + "");
 
                 if (inputData.type === "toggle") {
                     let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
@@ -146,7 +193,7 @@ function dispatchSubControl(input) {
                 }
 
                 console.log("set subtoggle state: " + i);
-            }, i * 333)
+            }, i * 500);
         }
     }, 200);
 };

@@ -3,11 +3,16 @@
 }
 
 .gridButton:active {
-    border: 5px solid rgb(25, 224, 68) !important;
+    border: 5px solid #1926e0 !important;
     outline:none !important;
 }
 
 .gridButton:focus {
     /* Remove the annoying outline for focus elements */
+    outline:none !important;
+}
+
+.active {
+    border: 5px solid #1926e0 !important;
     outline:none !important;
 }

@@ -1,7 +1,6 @@
 const fs = require('fs');
 const { vJoy, vJoyDevice } = require('vjoy');
 const express = require('express');
-const inputRender = require('./lib/inputRender.js');
 const groupRender = require('./lib/groupRender.js');
 const nunjucks = require('nunjucks');
 const app = express();
@@ -66,23 +65,29 @@ nunjucks.configure('views', {
     express: app
 });
 
-let renderedGroups = groupRender(userConfig.customButtons);
+let renderedGroups = groupRender(userConfig, true);
 
 // let renderedHTML = inputRender(userConfig.customButtons);
 
-let sliders = userConfig.customButtons.filter(item => item.type === "slider");
+let sliders = userConfig.customInputs.filter(item => item.type === "slider");
 
 // Init Sliders
-sliders.forEach(element => {
-    try {
-        device.axes[`${element.id}`].set(parseInt(element.range.default));
-    } catch (error) {
-
-    }
-});
+setTimeout(() => {
+    sliders.forEach(element => {
+        try {
+            device.axes[`${element.id}`].set(element.range.default);
+        } catch (error) {
+            console.log("error setting default range");
+        }
+    });
+}, 1500);
 
 app.get('/', function (req, res) {
-    res.render('index.html', { renderedGroups: renderedGroups, configStorage: JSON.stringify(userConfig) });
+    res.render('client.html', { renderedGroups: renderedGroups, configStorage: JSON.stringify(userConfig) });
+});
+
+app.get('/config', function (req, res) {
+    res.render('config.html');
 });
 
 app.post('/button', function (req, res) {
@@ -95,7 +100,7 @@ app.post('/button', function (req, res) {
     device.buttons[button.id].set(true); // press the first button
     setTimeout(() => {
         device.buttons[button.id].set(false);
-    }, 25);
+    }, 50);
 
     res.send(JSON.stringify({ status: 200, id: button.id })); // try res.json() if getList() returns an object or array
 });
@@ -110,8 +115,8 @@ app.post('/toggle', function (req, res) {
 
     device.buttons[button.id].set(button.state);
     setTimeout(() => {
-        device.buttons[button.id].set(false);
-    }, 25);
+        device.buttons[button.id].set(!button.state);
+    }, 50);
     res.send(JSON.stringify({ status: 200, id: button.id, state: button.state })); // try res.json() if getList() returns an object or array
 });
 
@@ -146,13 +151,17 @@ app.post('/hold', function (req, res) {
 app.post("/refresh", function (req, res) {
     console.log("Site has been refreshed/started up, defaulting buttons");
     device.resetButtons();
-    sliders.forEach(element => {
-        try {
-            device.axes[`${element.id}`].set(parseInt(element.range.default));
-        } catch (error) {
+    setTimeout(() => {
+        sliders.forEach(element => {
+            try {
+                console.log(`Setting ${element.id} to defined default value ${element.range.default}`)
+                device.axes[`${element.id}`].set(element.range.default);
+            } catch (error) {
+                console.log("error setting default range")
+            }
+        });
+    }, 1500);
 
-        }
-    });
 });
 
-console.log(`Running at ${serverAdress}:${userConfig.general.port} 🚀`);
+console.log(`Server running at: ${serverAdress}:${userConfig.general.port}`);

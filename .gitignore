@@ -109,3 +109,4 @@ user-config.json
 # Personal Stuff
 start-up.*
 old/*
+package-lock.json
