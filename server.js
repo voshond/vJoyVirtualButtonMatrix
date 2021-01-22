@@ -66,9 +66,6 @@ nunjucks.configure('views', {
 });
 
 let renderedGroups = groupRender(userConfig, true);
-
-// let renderedHTML = inputRender(userConfig.customButtons);
-
 let sliders = userConfig.customInputs.filter(item => item.type === "slider");
 
 // Init Sliders
@@ -114,9 +111,6 @@ app.post('/toggle', function (req, res) {
     }
 
     device.buttons[button.id].set(button.state);
-    setTimeout(() => {
-        device.buttons[button.id].set(!button.state);
-    }, 50);
     res.send(JSON.stringify({ status: 200, id: button.id, state: button.state })); // try res.json() if getList() returns an object or array
 });
 
@@ -129,7 +123,6 @@ app.post('/slider', function (req, res) {
     }
 
     device.axes[`${slider.id}`].set(slider.value);
-
     res.send(JSON.stringify({ status: 200, id: slider.id, value: slider.value })); // try res.json() if getList() returns an object or array
 });
 
