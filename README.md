@@ -23,6 +23,7 @@ a simple browser based tool to create and control a vjoy Device and provide an i
 3. install all the dependencies with `npm install`
 4. copy the `sample-user-config.json` from the samples folder into the root folder of the project and then rename the file to `user-config.json`
 5. start the server with `node server.js`
+6. visit the server from any device that is in the same local network on your specified port. it should show the current ip&port, as long as it is wired. i havn't put much effort to check this for each network configuration. 
 
 #### styling:
 
