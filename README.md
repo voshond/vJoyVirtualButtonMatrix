@@ -1,5 +1,7 @@
 # vJoyVirtualButtonMatrix
 
+![logo](https://github.com/voshond/vJoyVirtualButtonMatrix/blob/main/public/apple-touch-icon.png?raw=true)
+
 a simple browser based tool to create and control a vjoy Device and provide an interface for LAN usage.
 
 #### know issues:
@@ -73,16 +75,23 @@ in the sample it starts at button 61 and ends with button 65, which each numbers
 ##### default:
 
 `type`: defines the default behavior, only works with `button`, `hold` and `toggle` types
+
 `content`: label infront of the number
+
 `group`: Name of the default group
+
 `style`: ability to change the `color` and `background-color`, tested with hex-colors
+
 `class`: define the tailwind classes to be applied
 
 #### input types:
 
 `button`: simple single press button, released after `25ms`
+
 `hold`: hold the button for `300ms` before released
+
 `toggle`: engages the button until pressed again
+
 `slider`: sets the slider from a range from `1` to the user-config defined max (max from vjoy is `32768`)
 
 #### macros and indicators:
@@ -137,3 +146,9 @@ start the server with nodemon
 2. `nodemon server.js`
 
 this way you can make changes to the code as you wish and nodemon will watch all changes to the css, js and html files in this project.
+
+#### screenshot:
+![shot1](https://i.imgur.com/g51i9UT.png)
+
+#### video:
+https://www.youtube.com/watch?v=O79dQwpeelQ&t=12s
