@@ -8,14 +8,10 @@
   },
   "dependencies": {
     "autoprefixer": "^10.2.3",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
     "express": "^4.17.1",
-    "http-errors": "~1.6.3",
     "nunjucks": "^3.2.2",
     "postcss": "^8.2.4",
     "postcss-cli": "^8.3.1",
-    "robotjs": "^0.6.0",
     "tailwindcss": "^2.0.2",
     "vjoy": "^1.2.2"
   },
