@@ -23,8 +23,22 @@ for (const name of Object.keys(nets)) {
         }
     }
 }
+const inferEthernetInterface = () => {
+    const keys = Object.keys(results)
+    for (const key of keys) {
+        if(key.startsWith("Ethernet")) {
+            return results[key]
+        }
+    }
+    return keys.length > 0
+        ? results[keys[0]]
+        : null
+}
 
-let serverAdress = results["Ethernet"][0];
+let serverAdress = (
+    results["Ethernet"] ||
+    inferEthernetInterface() ||
+    ["localhost"])[0];
 
 // create a joystick
 let deviceId = userConfig.vJoy.deviceId;
