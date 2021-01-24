@@ -1,7 +1,7 @@
 {
-  "name": "scbuttonmatrix",
-  "version": "0.0.0",
-  "private": true,
+  "name": "vjovvirtualbuttonmatrix",
+  "version": "0.5.0",
+  "private": false,
   "scripts": {
     "start": "nodemon app",
     "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css"
