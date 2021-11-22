@@ -147,8 +147,11 @@ start the server with nodemon
 
 this way you can make changes to the code as you wish and nodemon will watch all changes to the css, js and html files in this project.
 
-#### screenshot:
-![shot1](https://i.imgur.com/g51i9UT.png)
+#### screenshot of interface:
+![shot1](https://i.imgur.com/iASrNX4.png)
+
+#### config loader:
+![shot2](https://i.imgur.com/TE9yP5P.png)
 
 #### video:
 https://www.youtube.com/watch?v=O79dQwpeelQ&t=12s
