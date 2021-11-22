@@ -4,12 +4,12 @@
 
 a simple browser based tool to create and control a vjoy Device and provide an interface for LAN usage.
 
-#### know issues:
+#### Know issues:
 
 1): Error on Startup:
 `WARNING: The installed version (537) of vJoy is older than the SDK this library was built against (545). If you run into problems, please update your vJoy installation.` is due to the vJoy installation being the official build. However the node package used (https://github.com/jangxx/node-vjoy) is using this fork of vJoy: https://github.com/njz3/vJoy i am using the official build with no errors in operation so far. This is due Joystick Gremlin not being able to cope with njz3's build.
 
-#### pre-setup-guide:
+#### Pre-setup-guide:
 
 1. download node.js https://nodejs.org/en/download/
 2. **download vJoy https://github.com/shauleiz/vJoy/releases
@@ -18,7 +18,7 @@ a simple browser based tool to create and control a vjoy Device and provide an i
 **WARNING: if you use joystick gremlin, you may need to use an outdated library http://vjoystick.sourceforge.net/site/index.php/download-a-install/download
 
 
-#### setup-guide:
+#### Setup-guide:
 
 1. clone the project
 2. navigate to the folder of the project
@@ -27,11 +27,11 @@ a simple browser based tool to create and control a vjoy Device and provide an i
 5. start the server with `node server.js`
 6. visit the server from any device that is in the same local network on your specified port. it should show the current ip&port, as long as it is wired. i havn't put much effort to check this for each network configuration. 
 
-#### styling:
+#### Styling:
 
 the style of the project is done with https://tailwindcss.com/docs/ as such all buttons shape and color can be configured with tailwind classes.
 
-#### user-config:
+#### User-config:
 
 ```
 "general": {
@@ -59,7 +59,7 @@ the style of the project is done with https://tailwindcss.com/docs/ as such all 
 
 here is the basic shape of a user-config.json file
 
-##### general:
+##### General:
 
 `defaultButtonRangeStart, defaultButtonRangeEnd`:
 If you have no desire for custom inputs methods and you just need simple, singlepress buttons you can define the range of buttons to be created, based on the `default` template on the user-config
@@ -72,7 +72,7 @@ in the sample it starts at button 61 and ends with button 65, which each numbers
 
 `deviceId` the vJoy device to control
 
-##### default:
+##### Default:
 
 `type`: defines the default behavior, only works with `button`, `hold` and `toggle` types
 
@@ -84,7 +84,7 @@ in the sample it starts at button 61 and ends with button 65, which each numbers
 
 `class`: define the tailwind classes to be applied
 
-#### input types:
+#### Input types:
 
 `button`: simple single press button, released after `25ms`
 
@@ -94,7 +94,7 @@ in the sample it starts at button 61 and ends with button 65, which each numbers
 
 `slider`: sets the slider from a range from `1` to the user-config defined max (max from vjoy is `32768`)
 
-#### macros and indicators:
+#### Macros and indicators:
 
 in the customInputs buttons the user can define if the button will trigger `sequence` and `subcontrol`
 
@@ -139,7 +139,7 @@ as shown in this example the button `1` would toggle the subcontrol with the id 
 `sequence`:
 as shown in the example the press of the button `1` would trigger `Slider0` with the value of `10450`. the `type` needs to be defined so the logic knows the behavior of the button to be pressed.
 
-#### development recommendations:
+#### Development recommendations:
 
 start the server with nodemon
 1. `npm install -g nodemon`
@@ -147,11 +147,11 @@ start the server with nodemon
 
 this way you can make changes to the code as you wish and nodemon will watch all changes to the css, js and html files in this project.
 
-#### screenshot of interface:
-![shot1](https://i.imgur.com/iASrNX4.png)
+#### Screenshot of interface:
+![shot1](https://i.imgur.com/TE9yP5P.png)
 
-#### config loader:
-![shot2](https://i.imgur.com/TE9yP5P.png)
+#### Config loader:
+![shot2](https://i.imgur.com/iASrNX4.png)
 
-#### video:
+#### Video:
 https://www.youtube.com/watch?v=O79dQwpeelQ&t=12s
