@@ -2,12 +2,24 @@ const fs = require('fs');
 const { vJoy, vJoyDevice } = require('vjoy');
 const express = require('express');
 const groupRender = require('./lib/groupRender.js');
+const configManager = require('./lib/configManager.js');
 const nunjucks = require('nunjucks');
 const app = express();
 const path = require('path');
-const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json')));
-const userConfig = JSON.parse(fs.readFileSync(path.join(__dirname, 'user-config.json')));
 const { networkInterfaces } = require('os');
+require('log-timestamp')(function () { return '<' + new Date().toISOString() + '> %s' });
+
+// -----------------------------------------------------------------
+
+let globalConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '/global-config.json')));
+
+// -----------------------------------------------------------------
+
+let userConfig = {};
+userConfig = configManager.readLastConfig(globalConfig.lastConfig.filePath);
+let configs = configManager.readConfigs(path.join(__dirname, '/configs'));
+
+// -----------------------------------------------------------------
 
 const nets = networkInterfaces();
 const results = Object.create(null); // Or just '{}', an empty object
@@ -23,10 +35,11 @@ for (const name of Object.keys(nets)) {
         }
     }
 }
+
 const inferEthernetInterface = () => {
     const keys = Object.keys(results)
     for (const key of keys) {
-        if(key.startsWith("Ethernet")) {
+        if (key.startsWith("Ethernet")) {
             return results[key]
         }
     }
@@ -56,7 +69,7 @@ if (!vJoy.isEnabled()) {
 
 // create a device
 let device = vJoyDevice.create(deviceId);
-device.resetButtons();
+
 
 // check if it was created
 if (device == null) {
@@ -64,8 +77,10 @@ if (device == null) {
     process.exit();
 }
 
+device.resetButtons();
+
 // setup the express server
-app.listen(process.env.port || userConfig.general.port);
+app.listen(process.env.port || globalConfig.server.port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'nunjucks');
 app.use(express.static(path.join(__dirname, 'public')))
@@ -79,10 +94,12 @@ nunjucks.configure('views', {
     express: app
 });
 
-let renderedGroups = groupRender(userConfig, true);
+let renderedGroups = groupRender(userConfig, userConfig.general.defaultButtonsEnabled);
 let sliders = userConfig.customInputs.filter(item => item.type === "slider");
 
+// -----------------------------------------------------------------
 // Init Sliders
+
 setTimeout(() => {
     sliders.forEach(element => {
         try {
@@ -93,8 +110,11 @@ setTimeout(() => {
     });
 }, 1500);
 
+// -----------------------------------------------------------------
+// requests
+
 app.get('/', function (req, res) {
-    res.render('client.html', { renderedGroups: renderedGroups, configStorage: JSON.stringify(userConfig) });
+    res.render('client.html', { renderedGroups: renderedGroups, configStorage: JSON.stringify(userConfig), configs: JSON.stringify(configs) });
 });
 
 app.get('/config', function (req, res) {
@@ -102,6 +122,21 @@ app.get('/config', function (req, res) {
 });
 
 app.post('/button', function (req, res) {
+    console.log(req.body);
+    let button = {
+        id: req.body.id,
+        type: req.body.type
+    }
+
+    device.buttons[button.id].set(true); // press the first button
+    setTimeout(() => {
+        device.buttons[button.id].set(false);
+    }, 50);
+
+    res.send(JSON.stringify({ status: 200, id: button.id })); // try res.json() if getList() returns an object or array
+});
+
+app.post('/pseudotoggle', function (req, res) {
     console.log(req.body);
     let button = {
         id: req.body.id,
@@ -168,7 +203,47 @@ app.post("/refresh", function (req, res) {
             }
         });
     }, 1500);
-
 });
 
-console.log(`Server running at: ${serverAdress}:${userConfig.general.port}`);
+// -----------------------------------------------------------------
+
+app.post("/changeConfig", function (req, res) {
+    console.log(`Changing config to "${req.body.name}".`);
+
+    // unbinding the current device
+    device.free();
+
+    // setting the new userconfig
+    userConfig = configManager.changeConfig(req.body.file);
+
+    // rerender the groups
+    renderedGroups = groupRender(userConfig, userConfig.general.defaultButtonsEnabled);
+    sliders = userConfig.customInputs.filter(item => item.type === "slider");
+
+    // create a device
+    device = vJoyDevice.create(parseInt(req.body.vJoy.deviceId));
+
+    // check if it was created
+    if (device == null) {
+        console.log(`Could not initialize the device. Status: ${vJoyDevice.status(parseInt(req.body.vJoy.deviceId))}`);
+        process.exit();
+    };
+
+    // sending response to the client
+    res.send(JSON.stringify({ status: 200, op: "ok" }));
+});
+
+// -----------------------------------------------------------------
+
+app.post("/stopServer", function () {
+    console.log("Stopping Server.");
+    process.exit();
+});
+
+app.post("/restartServer", function () {
+    console.log("Restarting Server.");
+    device.resetButtons();
+    listenToGameLog("/Games/StarCitizen/LIVE/Game.log");
+});
+
+console.log(`Server running at: ${serverAdress}:${globalConfig.server.port}.`);

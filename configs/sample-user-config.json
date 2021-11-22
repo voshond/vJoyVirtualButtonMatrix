@@ -1,4 +1,5 @@
 {
+    "name": "Sample Config",
     "general": {
         "defaultButtonRangeStart": 61,
         "defaultButtonRangeEnd": 65,
@@ -31,15 +32,15 @@
             "subcontrol": [
                 {
                     "id": 3,
-                    "type": "toggle"
+                    "type": "pseudotoggle"
                 },
                 {
                     "id": 4,
-                    "type": "toggle"
+                    "type": "pseudotoggle"
                 },
                 {
                     "id": 5,
-                    "type": "toggle"
+                    "type": "pseudotoggle"
                 }
             ],
             "sequence": [
@@ -136,7 +137,7 @@
         },
         {
             "id": 3,
-            "type": "toggle",
+            "type": "pseudotoggle",
             "content": "Engines",
             "group": "Default",
             "style": {
@@ -147,7 +148,7 @@
         },
         {
             "id": 4,
-            "type": "toggle",
+            "type": "pseudotoggle",
             "content": "Shields",
             "group": "Default",
             "style": {
@@ -158,7 +159,7 @@
         },
         {
             "id": 5,
-            "type": "toggle",
+            "type": "pseudotoggle",
             "content": "Weapons",
             "group": "Default",
             "style": {

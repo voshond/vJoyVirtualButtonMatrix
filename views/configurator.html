@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <title>Button Matrix</title>
+    <script src="js/configurator.js"></script>
+    <link rel="stylesheet" href="styles/buttons.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <!-- Internal Storage containing all the user-config button stuff -->
+    <div id="storage" style="display: none !important;">{}</div>
+
+    <div class="min-h-screen flex">
+        <!-- padding is important so the sliders can reach the max value -->
+
+        <div class="flex-1 grid grid-cols-3 p-0 grid-flow-row gap-1">
+
+            <div id="configuration" class="p-2 bg-white">
+                <div>
+                    <h3><b>Configurator</b></h3>
+                    <br>
+                    <h4><b>Number of generic buttons</b></h4>
+
+                    <input id="amountOfDefaultInputs" type="number"
+                        class="mt-1 p-1 px-2 w-10 border-gray-200 border-2 rounded-md" placeholder="1" max="128"
+                        min="1">
+                    <br>
+                    <button id="generateConfig" class="mt-1 p-1 px-2 border-gray-200 border-2 rounded-md">
+                        <b>generate config</b>
+                    </button>
+                </div>
+            </div>
+
+            <div style="background-color: wheat;">
+                <textarea name="" id="code" cols="30" rows="10" class="h-full w-full"></textarea>
+            </div>
+
+            <div id="preview" style="background-color: green;" class="p-2">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

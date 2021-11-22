@@ -1,0 +1,30 @@
+
+
+.bg-accent {
+    background-color: var(--bg-accent);
+}
+
+.bg-main {
+    background-color: var(--bg-main);
+};
+
+.bg-primary {
+    background-color: var(--bg-primary);
+}
+
+.bg-secondary {
+    background-color: var(--bg-secondary);
+}
+
+.bg-highlight {
+    background-color: var(--bg-highlight);
+}
+
+:root {
+    --bg-accent: #c5efcbff;
+    --bg-main: #020402ff;
+    --bg-primary: #758173ff;
+    --bg-secondary: #a9c5a0ff;
+    --bg-highlight: #c6dec6ff;
+    --wine-red: #72192E;
+}

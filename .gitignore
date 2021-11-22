@@ -110,3 +110,6 @@ user-config.json
 start-up.*
 old/*
 package-lock.json
+*.ahk
+tests/*
+playerData/*

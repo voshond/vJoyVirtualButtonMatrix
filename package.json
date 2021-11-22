@@ -9,14 +9,20 @@
   "dependencies": {
     "autoprefixer": "^10.2.3",
     "express": "^4.17.1",
+    "log-timestamp": "^0.3.0",
+    "md5": "^2.3.0",
+    "node-fetch": "^2.6.1",
     "nunjucks": "^3.2.2",
-    "postcss": "^8.2.4",
+    "postcss": "^8.3.11",
     "postcss-cli": "^8.3.1",
     "tailwindcss": "^2.0.2",
     "vjoy": "^1.2.2"
   },
   "nodemonConfig": {
-    "ext": "js,json,css,html"
+    "ext": "js,json,css,html",
+    "ignore": [
+      "playerData/"
+    ]
   },
   "devDependencies": {
     "tailwindcss-textshadow": "^2.1.3"

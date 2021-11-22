@@ -1,8 +1,13 @@
 .toggledButton {
-    border: 6px solid #39cf45bb !important;
+    border: 6px solid #c5efcb !important;
 }
 
 .gridButton:active {
+    border: 5px solid #1926e0 !important;
+    outline:none !important;
+}
+
+.active {
     border: 5px solid #1926e0 !important;
     outline:none !important;
 }
@@ -12,7 +17,12 @@
     outline:none !important;
 }
 
-.active {
-    border: 5px solid #1926e0 !important;
-    outline:none !important;
+.cautionButton {
+    background: repeating-linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 15px,
+    rgba(0, 0, 0, 0.05) 15px,
+    rgba(0, 0, 0, 0.05) 30px
+    );
 }

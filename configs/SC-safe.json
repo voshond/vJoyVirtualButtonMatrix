@@ -1,0 +1,392 @@
+{
+    "name": "Backup: Star Citizen",
+    "defaultConfig": true,
+    "general": {
+        "defaultButtonRangeStart": 61,
+        "defaultButtonRangeEnd": 65,
+        "port": 3000
+    },
+    "vJoy": {
+        "deviceId": 1
+    },
+    "default": {
+        "type": "button",
+        "content": "Button",
+        "group": "Default",
+        "style": {
+            "background-color": "",
+            "color": ""
+        },
+        "class": "rounded-lg bg-gray-300 h-24 p-2 text-md font-bold font-sans"
+    },
+    "customInputs": [
+        {
+            "id": 1,
+            "type": "button",
+            "content": "Flight Ready",
+            "group": "Default",
+            "style": {
+                "background-color": "#72192E",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans",
+            "subcontrol": [
+                {
+                    "id": 3,
+                    "type": "pseudotoggle"
+                },
+                {
+                    "id": 4,
+                    "type": "pseudotoggle"
+                },
+                {
+                    "id": 5,
+                    "type": "pseudotoggle"
+                }
+            ],
+            "sequence": [
+                {
+                    "id": "Slider0",
+                    "type": "slider",
+                    "value": 10450
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "type": "button",
+            "content": "Power All Systems",
+            "group": "Default",
+            "style": {
+                "background-color": "#72192E",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans",
+            "subcontrol": [
+                {
+                    "id": 3,
+                    "type": "button"
+                },
+                {
+                    "id": 4,
+                    "type": "button"
+                },
+                {
+                    "id": 5,
+                    "type": "button"
+                }
+            ]
+        },
+        {
+            "id": 91,
+            "type": "button",
+            "content": "Landing Gear + VTOL",
+            "group": "Macro",
+            "style": {
+                "background-color": "#72192E",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans",
+            "sequence": [
+                {
+                    "id": 12,
+                    "type": "button",
+                    "delay": 1000
+                },
+                {
+                    "id": 15,
+                    "type": "button"
+                },
+                {
+                    "id": "Slider0",
+                    "type": "slider",
+                    "value": 1000
+                },
+                {
+                    "id": 13,
+                    "type": "button"
+                }
+            ]
+        },
+        {
+            "id": 92,
+            "type": "button",
+            "content": "Stealth Mode",
+            "group": "Macro",
+            "style": {
+                "background-color": "#72192E",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans",
+            "sequence": [
+                {
+                    "id": 3,
+                    "type": "toggle",
+                    "state": false
+                },
+                {
+                    "id": 4,
+                    "type": "toggle",
+                    "state": false
+                },
+                {
+                    "id": 5,
+                    "type": "toggle",
+                    "state": false
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "type": "pseudotoggle",
+            "content": "Engines",
+            "group": "Default",
+            "style": {
+                "background-color": "#72192E",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 4,
+            "type": "pseudotoggle",
+            "content": "Shields",
+            "group": "Default",
+            "style": {
+                "background-color": "#72192E",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 5,
+            "type": "pseudotoggle",
+            "content": "Weapons",
+            "group": "Default",
+            "style": {
+                "background-color": "#72192E",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 12,
+            "content": "Gears",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#E56932",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 13,
+            "content": "Open/Close Doors",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#E56932",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 14,
+            "content": "Lock/Unlock Doors",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#E56932",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 15,
+            "content": "VTOL Mode",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#E56932",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 18,
+            "content": "Lights",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#E56932",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 20,
+            "content": "Increase Cooler Rate",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#E56932",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 21,
+            "content": "Decrease Cooler Rate",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#E56932",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 19,
+            "content": "PID Broadcast",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#E56932",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 16,
+            "content": "Quantum Mode",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#735585",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 17,
+            "content": "Engage Quantum Drive",
+            "group": "Ship Systems",
+            "type": "hold",
+            "style": {
+                "background-color": "#735585",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 51,
+            "content": "G-Force Safety",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#fcba03",
+                "color": "#000000"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 45,
+            "content": "Map",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#3670ec",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 45,
+            "content": "Speed Limiter",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#3670ec",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 31,
+            "content": "Match Target Velocity",
+            "group": "Default",
+            "type": "button",
+            "style": {
+                "background-color": "#6e10ad",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": "Slider0",
+            "content": "Cruise Limiter",
+            "group": "Ship Systems",
+            "type": "slider",
+            "orientation": "horizontal",
+            "style": {
+                "color": "#ffffff"
+            },
+            "range": {
+                "default": 10450,
+                "min": 1,
+                "max": 32768
+            },
+            "class": "rounded-md overflow-hidden appearance-none cursor-pointer bg-gray-400 h-24 col-span-2 sm:col-span-3 md:col-span-5 lg:col-span-6"
+        },
+        {
+            "id": "Slider1",
+            "content": "Mining Laser",
+            "group": "Mining",
+            "type": "slider",
+            "orientation": "horizontal",
+            "style": {
+                "color": "#ffffff"
+            },
+            "range": {
+                "default": 1,
+                "min": 1,
+                "max": 32768
+            },
+            "class": "rounded-md overflow-hidden appearance-none cursor-pointer bg-gray-400 h-24 col-span-2 sm:col-span-3 md:col-span-5 lg:col-span-6"
+        },
+        {
+            "id": 71,
+            "content": "Eject",
+            "group": "Emergency",
+            "type": "button",
+            "style": {
+                "background-color": "red",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 73,
+            "content": "Emergency Exit Seat",
+            "group": "Emergency",
+            "type": "button",
+            "style": {
+                "background-color": "red",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 72,
+            "content": "Self Destruct",
+            "group": "Emergency",
+            "type": "button",
+            "style": {
+                "background-color": "red",
+                "color": "#ffffff"
+            },
+            "class": "rounded-lg bg-white h-24 p-2 text-md font-bold font-sans"
+        }
+    ]
+}

@@ -1,43 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-black">
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-            content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <meta name="mobile-web-app-capable" content="yes">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta name="mobile-web-app-capable" content="yes">
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
-        <title>Button Matrix</title>
-        <script src="js/client.js"></script>
-        <link rel="stylesheet" href="styles/buttons.css">
-        <link rel="stylesheet" href="styles/style.css">
-    </head>
+    <title>Button Matrix</title>
+    <script src="js/client.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/client-config-manager.js"></script>
+    <link rel="stylesheet" href="styles/colors.css">
+    <link rel="stylesheet" href="styles/buttons.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/tailwind.css">
+    <link rel="stylesheet" href="styles/tabs.css">
+</head>
 
-    <body>
-        <!-- Internal Storage containing all the user-config button stuff -->
-        <div id="storage" style="display: none !important;">{{configStorage|safe}}</div>
+<body class="bg-black">
+    <!-- Internal Storage containing all the user-config button stuff -->
+    <div id="storage" style="display: none !important;">{{configStorage|safe}}</div>
+    <div id="configs" style="display: none !important;">{{configs|safe}}</div>
 
-        <div class="min-h-screen flex items-start ">
+    <nav class="fixed h-8 top-0 left-0 right-0 tab-navigation w-screen">
+        <ul style="background-color: var(--bg-primary);">
+            <li name="tab1"
+                class="activeNavigationLink inline-block p-2 px-5 text-center align-middle cursor-pointer text-white">
+                Controls
+            </li>
+            <li name="tab2" class="inline-block p-2 px-5 text-center align-middle cursor-pointer text-white">
+                Configurations
+            </li>
+        </ul>
+    </nav>
+
+    <!-- start tab1 -->
+    <div class="tab" id="tab1">
+        <div class="min-h-screen flex items-start">
             <!-- padding is important so the sliders can reach the max value -->
-            <div class="flex-1 p-4">
+            <div class="flex-1 p-4 pt-20">
 
                 {{renderedGroups|safe}}
 
                 <h1 class="text-white font-black">Debug</h1>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 mt-1 grid-flow-row gap-2">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6  mt-1 grid-flow-row gap-2">
                     <button onClick="window.location.reload();"
-                        class="rounded-lg bg-white h-24 p-2 text-md font-bold font-sans">Refresh</button>
+                        class="rounded-lg cautionButton h-20 p-2 text-md font-bold font-sans"
+                        style="background-color: var(--bg-secondary);">Refresh</button>
+                    <button id="stopServer" class="rounded-lg cautionButton h-20 p-2 text-md font-bold font-sans"
+                        style="background-color: var(--bg-secondary);">Stop
+                        Server</button>
+                    <button id="resetServer" class="rounded-lg cautionButton h-20 p-2 text-md font-bold font-sans"
+                        style="background-color: var(--bg-secondary);">Reset
+                        Server</button>
                 </div>
-
             </div>
         </div>
+    </div>
+    <!-- end tab1 -->
 
+    <!-- start tab2 -->
+    <div class="tab hidden" id="tab2">
+        <div class="min-h-screen flex w-full">
 
-    </body>
+            <div class="flex flex-col justify-center w-full" id="configContainer">
+                <div class="self-center text-white font-bold text-xl mb-3 w-8/12 ">Available Configurations</div>
+            </div>
+
+        </div>
+    </div>
+    <!-- end tab2 -->
+
+</body>
 
 </html>

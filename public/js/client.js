@@ -31,9 +31,21 @@ async function postData(url = '', data = {}) {
         body: JSON.stringify(data)
     });
     return response.json();
-}
+};
 
 function assignEventListener() {
+    // stop Sever control
+    let stopServerButton = document.querySelector("#stopServer");
+    stopServerButton.addEventListener("click", () => {
+        stopServer();
+    });
+
+    let resetServerButton = document.querySelector("#resetServer");
+    resetServerButton.addEventListener("click", () => {
+        resetServer();
+    });
+
+    // assign functions to all rendered buttons
     let inputs = document.querySelectorAll(".input");
     inputs.forEach(input => {
         let type = input.getAttribute("vjoytype");
@@ -96,6 +108,17 @@ function assignEventListener() {
                 });
                 break;
 
+            case "pseudotoggle":
+                console.log("creating listener for pseudotoggle button " + (input.getAttribute("vjoyid")));
+                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), state: input.state });
+
+                input.addEventListener("click", function () {
+                    input.classList.toggle("toggledButton");
+                    input.state = input.classList.value.includes("toggledButton");
+                    dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), state: input.state });
+                });
+                break;
+
             case "slider":
                 console.log("creating listener for slider " + (input.getAttribute("vjoyid")));
                 console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), value: input.value });
@@ -127,7 +150,7 @@ function dispatchSequence(input) {
 
                 console.log(input[i].type)
 
-                if (input[i].type === "toggle") {
+                if (input[i].type === "toggle" || input[i].type === "pseudotoggle") {
                     let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
 
                     console.log(inputData.type + ", state: " + input[i].state)
@@ -187,7 +210,7 @@ function dispatchSubControl(input) {
             setTimeout(function () {
                 let inputData = userConfig.customInputs.find(item => item.id + "" === input[i].id + "");
 
-                if (inputData.type === "toggle") {
+                if (inputData.type === "toggle" || input[i].type === "pseudotoggle") {
                     let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
                     renderedInput.classList.toggle("toggledButton");
                 }
@@ -196,4 +219,13 @@ function dispatchSubControl(input) {
             }, i * 500);
         }
     }, 200);
+};
+
+function stopServer() {
+    postData("/stopServer");
+};
+
+function resetServer() {
+    window.location.reload();
+    postData("/resetServer");
 };
