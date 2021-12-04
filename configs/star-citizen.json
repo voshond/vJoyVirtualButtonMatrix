@@ -157,8 +157,8 @@
         },
         {
             "id": 12,
-            "content": "Gears",
-            "group": "Ship Systems",
+            "content": "Landing Gear",
+            "group": "Ship Hull Control",
             "type": "button",
             "style": {
                 "background-color": "#758173",
@@ -169,7 +169,7 @@
         {
             "id": 13,
             "content": "Open/Close Doors",
-            "group": "Ship Systems",
+            "group": "Ship Hull Control",
             "type": "button",
             "style": {
                 "background-color": "#758173",
@@ -180,7 +180,7 @@
         {
             "id": 14,
             "content": "Lock/Unlock Doors",
-            "group": "Ship Systems",
+            "group": "Ship Hull Control",
             "type": "button",
             "style": {
                 "background-color": "#758173",
@@ -191,7 +191,7 @@
         {
             "id": 15,
             "content": "VTOL Mode",
-            "group": "Ship Systems",
+            "group": "Ship Hull Control",
             "type": "button",
             "style": {
                 "background-color": "#758173",
@@ -202,28 +202,6 @@
         {
             "id": 18,
             "content": "Lights",
-            "group": "Ship Systems",
-            "type": "button",
-            "style": {
-                "background-color": "#758173",
-                "color": "#c5efcb"
-            },
-            "class": "rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
-        },
-        {
-            "id": 20,
-            "content": "Increase Cooler Rate",
-            "group": "Ship Systems",
-            "type": "button",
-            "style": {
-                "background-color": "#758173",
-                "color": "#c5efcb"
-            },
-            "class": "rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
-        },
-        {
-            "id": 21,
-            "content": "Decrease Cooler Rate",
             "group": "Ship Systems",
             "type": "button",
             "style": {
@@ -246,7 +224,7 @@
         {
             "id": 16,
             "content": "Quantum Mode",
-            "group": "Ship Systems",
+            "group": "Operator Modes",
             "type": "button",
             "style": {
                 "background-color": "#a9c5a0",
@@ -257,7 +235,7 @@
         {
             "id": 17,
             "content": "Engage Quantum Drive",
-            "group": "Ship Systems",
+            "group": "Operator Modes",
             "type": "hold",
             "style": {
                 "background-color": "#a9c5a0",
@@ -277,15 +255,37 @@
             "class": "cautionButton rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
         },
         {
+            "id": 54,
+            "content": "PIP Mode",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#a9c5a0",
+                "color": "#000000"
+            },
+            "class": "rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 53,
+            "content": "Couple Mode",
+            "group": "Ship Systems",
+            "type": "button",
+            "style": {
+                "background-color": "#a9c5a0",
+                "color": "#000000"
+            },
+            "class": "rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
+        },
+        {
             "id": 51,
             "content": "G-Force Safety",
             "group": "Ship Systems",
             "type": "button",
             "style": {
-                "background-color": "#fcba03",
+                "background-color": "#a9c5a0",
                 "color": "#000000"
             },
-            "class": "cautionButton rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
+            "class": "rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
         },
         {
             "id": 45,
@@ -350,6 +350,18 @@
             "style": {
                 "background-color": "red",
                 "color": "#72192E"
+            },
+            "class": "cautionButton rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 78,
+            "content": "Pinger",
+            "group": "Ship Systems",
+            "type": "repeat",
+            "interval": 3050,
+            "style": {
+                "background-color": "#fcba03",
+                "color": "#000000"
             },
             "class": "cautionButton rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
         }

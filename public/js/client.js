@@ -128,6 +128,28 @@ function assignEventListener() {
                 });
                 break;
 
+            case "repeat":
+                console.log("creating listener for repeat button " + (input.getAttribute("vjoyid")));
+                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), interval: input.getAttribute("vjoyinterval") });
+
+                input.addEventListener("click", function () {
+                    input.classList.toggle("repeatButton");
+                    input.state = input.classList.value.includes("repeatButton");
+                    if (input.classList.value.includes("repeatButton") === false) {
+                        clearInterval(repeater);
+                    } else if (input.classList.value.includes("repeatButton") === true) {
+                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), interval: input.getAttribute("vjoyinterval") });
+                    }
+                    let repeater = setInterval(() => {
+                        if (input.classList.value.includes("repeatButton") === false) {
+                            clearInterval(repeater);
+                        } else if (input.classList.value.includes("repeatButton") === true) {
+                            dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), interval: input.getAttribute("vjoyinterval") });
+                        }
+                    }, input.getAttribute("vjoyinterval"));
+                });
+                break;
+
             default:
                 break;
         }
@@ -135,8 +157,8 @@ function assignEventListener() {
 };
 
 function dispatchRequest(data) {
-    console.log({ id: data.id, type: data.type, state: data.state, value: data.value });
-    postData(`/${data.type}`, { id: data.id, type: data.type, state: data.state, value: data.value }).then(res => {
+    console.log(data);
+    postData(`/${data.type}`, data).then(res => {
         console.log(res);
     });
 };

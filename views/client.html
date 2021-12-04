@@ -28,14 +28,26 @@
     <div id="storage" style="display: none !important;">{{configStorage|safe}}</div>
     <div id="configs" style="display: none !important;">{{configs|safe}}</div>
 
-    <nav class="fixed h-8 top-0 left-0 right-0 tab-navigation w-screen">
-        <ul style="background-color: var(--bg-primary);">
+    <nav class="fixed h-auto top-0 left-0 right-0 w-screen flex">
+        <ul class="tab-navigation text-left w-1/2" style="background-color: var(--bg-primary);">
             <li name="tab1"
                 class="activeNavigationLink inline-block p-2 px-5 text-center align-middle cursor-pointer text-white">
                 Controls
             </li>
             <li name="tab2" class="inline-block p-2 px-5 text-center align-middle cursor-pointer text-white">
                 Configurations
+            </li>
+        </ul>
+
+        <ul style="background-color: var(--bg-primary);" class="text-right w-1/2">
+            <li class="inline-block p-2 px-5 text-center align-middle cursor-pointer text-white">
+                <button onClick="window.location.reload();">Refresh</button>
+            </li>
+            <li class="inline-block p-2 px-5 text-center align-middle cursor-pointer text-white">
+                <button id="resetServer">Reset Server</button>
+            </li>
+            <li class="inline-block p-2 px-5 text-center align-middle cursor-pointer text-white">
+                <button id="stopServer">Stop Server</button>
             </li>
         </ul>
     </nav>
@@ -45,21 +57,7 @@
         <div class="min-h-screen flex items-start">
             <!-- padding is important so the sliders can reach the max value -->
             <div class="flex-1 p-4 pt-20">
-
                 {{renderedGroups|safe}}
-
-                <h1 class="text-white font-black">Debug</h1>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6  mt-1 grid-flow-row gap-2">
-                    <button onClick="window.location.reload();"
-                        class="rounded-lg cautionButton h-20 p-2 text-md font-bold font-sans"
-                        style="background-color: var(--bg-secondary);">Refresh</button>
-                    <button id="stopServer" class="rounded-lg cautionButton h-20 p-2 text-md font-bold font-sans"
-                        style="background-color: var(--bg-secondary);">Stop
-                        Server</button>
-                    <button id="resetServer" class="rounded-lg cautionButton h-20 p-2 text-md font-bold font-sans"
-                        style="background-color: var(--bg-secondary);">Reset
-                        Server</button>
-                </div>
             </div>
         </div>
     </div>

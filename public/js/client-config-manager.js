@@ -27,10 +27,10 @@ function renderConfigs(configs = []) {
     let content = "";
     configs.forEach(config => {
         content += `
-            <button class="configButton self-center bg-gray-400 w-8/12 rounded-md text-left p-2 px-3 mb-2 relative" name="${config.name}" vjoyid="${config.vJoy.deviceId}" file="${config.file}">
-                <span class="bg-gray-900 text-gray-100 rounded text-sm px-1 h-5 text-center absolute right-3 top-2">vJoy ID: ${config.vJoy.deviceId}</span>
-                <div class="mb-1"><span class="text-lg font-bold">Profile: ${config.name}<span></div>
-                <div class="font-mono p-1 px-2 over text-sm bg-gray-300 rounded">${config.file}</span>
+            <button class="configButton self-center bg-gray-400 w-full md:w-8/12 rounded-md text-left p-2 px-3 mb-2 relative" name="${config.name}" vjoyid="${config.vJoy.deviceId}" fullPath="${config.path.full}">
+                <div class="mb-1"><span class="text-lg font-bold">${config.name}<span></div>
+                <div class="bg-gray-900 text-gray-100 rounded text-sm p-1 px-2 md:px-1 md:text-center text-left font-mono mb-1 md:mb-0 w-full md:w-auto md:absolute md:right-3 md:top-2">vJoy ID: ${config.vJoy.deviceId}</div>
+                <div class="font-mono p-1 px-2 over text-sm bg-gray-300 rounded">${config.path.short}</span>
             </button>
         `;
     });

@@ -2,6 +2,10 @@
     border: 6px solid #c5efcb !important;
 }
 
+.repeatButton {
+    border: 6px dashed #575757 !important;
+}
+
 .gridButton:active {
     border: 5px solid #1926e0 !important;
     outline:none !important;
