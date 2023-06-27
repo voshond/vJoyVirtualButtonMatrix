@@ -321,6 +321,16 @@
             "class": "rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
         },
         {
+            "id": 32,
+            "content": "Request Landing",
+            "group": "Default",
+            "type": "button",
+            "style": {
+                "color": "#c9ceff"
+            },
+            "class": "commsButton rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
+        },
+        {
             "id": 71,
             "content": "Eject",
             "group": "Emergency",

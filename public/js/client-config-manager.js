@@ -49,7 +49,7 @@ function registerHandler() {
         input.addEventListener("click", function () {
             postData("/changeConfig", {
                 name: input.getAttribute("name"),
-                file: input.getAttribute("file"),
+                file: input.getAttribute("fullpath"),
                 vJoy: {
                     deviceId: input.getAttribute("vjoyid")
                 }

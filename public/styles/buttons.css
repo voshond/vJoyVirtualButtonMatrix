@@ -8,25 +8,27 @@
 
 .gridButton:active {
     border: 5px solid #1926e0 !important;
-    outline:none !important;
+    outline: none !important;
 }
 
 .active {
     border: 5px solid #1926e0 !important;
-    outline:none !important;
+    outline: none !important;
 }
 
 .gridButton:focus {
     /* Remove the annoying outline for focus elements */
-    outline:none !important;
+    outline: none !important;
 }
 
 .cautionButton {
-    background: repeating-linear-gradient(
-    -45deg,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0) 15px,
-    rgba(0, 0, 0, 0.05) 15px,
-    rgba(0, 0, 0, 0.05) 30px
-    );
+    background: repeating-linear-gradient(-45deg,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, 0) 15px,
+            rgba(0, 0, 0, 0.05) 15px,
+            rgba(0, 0, 0, 0.05) 30px);
+}
+
+.commsButton {
+    background: repeating-radial-gradient(circle, #101ca1, #101ca1 17px, #2331c4 17px, #2331c4 34px);
 }

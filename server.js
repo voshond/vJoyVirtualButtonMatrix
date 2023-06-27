@@ -226,6 +226,7 @@ app.post('/hold', function (req, res) {
 
 app.post("/refresh", function (req, res) {
     console.log("Site has been refreshed/started up, defaulting buttons");
+    configs = configManager.readConfigs(path.join(__dirname, '/configs'));
     device.resetButtons();
     setTimeout(() => {
         sliders.forEach(element => {
@@ -244,12 +245,16 @@ app.post("/refresh", function (req, res) {
 
 app.post("/changeConfig", function (req, res) {
     console.log(`Changing config to "${req.body.name}".`);
-
     // unbinding the current device
     device.free();
 
     // setting the new userconfig
-    userConfig = configManager.changeConfig(req.body.path.full);
+    userConfig = configManager.changeConfig(req.body.file);
+
+    // setting the last loaded config
+    globalConfig.lastConfig.filePath = req.body.file;
+    globalConfig.lastConfig.name = req.body.name;
+    configManager.writeLastConfig(path.join(__dirname, '/global-config.json'),globalConfig);
 
     // rerender the groups
     renderedGroups = groupRender(userConfig, userConfig.general.defaultButtonsEnabled);
@@ -285,4 +290,4 @@ app.post("/restartServer", function () {
 // -----------------------------------------------------------------
 // running announcement
 
-console.log(`Server running at: ${serverAdress}:${globalConfig.server.port}.`);
+console.log(`Server running with the config "${userConfig.name}" vJoy device id ${userConfig.vJoy.deviceId} at: http://${serverAdress}:${globalConfig.server.port}/.`);

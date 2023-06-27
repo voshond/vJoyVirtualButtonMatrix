@@ -1,6 +1,7 @@
 {
     "name": "Sample Config",
     "general": {
+        "defaultButtonsEnabled": true,
         "defaultButtonRangeStart": 61,
         "defaultButtonRangeEnd": 65,
         "port": 3000
