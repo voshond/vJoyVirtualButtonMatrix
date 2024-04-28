@@ -222,6 +222,17 @@
             "class": "rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
         },
         {
+            "id": 3,
+            "type": "pseudotoggle",
+            "content": "Request Landing",
+            "group": "Default",
+            "style": {
+                "background-color": "#758173",
+                "color": "#c5efcb"
+            },
+            "class": "rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
+        },
+        {
             "id": 16,
             "content": "Quantum Mode",
             "group": "Operator Modes",
@@ -369,6 +380,17 @@
             "group": "Ship Systems",
             "type": "repeat",
             "interval": 3050,
+            "style": {
+                "background-color": "#fcba03",
+                "color": "#000000"
+            },
+            "class": "cautionButton rounded-lg bg-white h-20 p-2 text-md font-bold font-sans"
+        },
+        {
+            "id": 79,
+            "content": "Headtracking Mode",
+            "group": "Default",
+            "type": "button",
             "style": {
                 "background-color": "#fcba03",
                 "color": "#000000"

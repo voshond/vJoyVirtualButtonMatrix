@@ -1,10 +1,13 @@
 function docReady(fn) {
-    if (document.readyState === "complete" || document.readyState === "interactive") {
+    if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+    ) {
         setTimeout(fn, 1);
     } else {
         document.addEventListener("DOMContentLoaded", fn);
-    };
-};
+    }
+}
 
 let userConfig = {};
 
@@ -16,22 +19,22 @@ docReady(function () {
     postData("/refresh");
 });
 
-async function postData(url = '', data = {}) {
+async function postData(url = "", data = {}) {
     // Default options are marked with *
     const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(data)
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify(data),
     });
     return response.json();
-};
+}
 
 function assignEventListener() {
     // stop Sever control
@@ -47,104 +50,211 @@ function assignEventListener() {
 
     // assign functions to all rendered buttons
     let inputs = document.querySelectorAll(".input");
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
         let type = input.getAttribute("vjoytype");
         let id = input.getAttribute("vjoyid");
 
         switch (type) {
             case "button":
-                console.log("creating listener for button " + (input.getAttribute("vjoyid")));
-                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+                console.log(
+                    "creating listener for button " +
+                        input.getAttribute("vjoyid")
+                );
+                console.log({
+                    id: input.getAttribute("vjoyid"),
+                    type: input.getAttribute("vjoytype"),
+                });
 
-                let inputData = userConfig.customInputs.find(item => item.id + "" === id + "");
-                if (inputData.hasOwnProperty("sequence") === true && inputData.hasOwnProperty("subcontrol") === true) {
+                let inputData = userConfig.customInputs.find(
+                    (item) => item.id + "" === id + ""
+                );
+                if (
+                    inputData.hasOwnProperty("sequence") === true &&
+                    inputData.hasOwnProperty("subcontrol") === true
+                ) {
                     input.addEventListener("click", function () {
-                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+                        dispatchRequest({
+                            id: input.getAttribute("vjoyid"),
+                            type: input.getAttribute("vjoytype"),
+                        });
                         dispatchSequence(inputData.sequence);
                         dispatchSubControl(inputData.subcontrol);
                     });
                 } else if (inputData.hasOwnProperty("sequence") === true) {
                     input.addEventListener("click", function () {
-                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+                        dispatchRequest({
+                            id: input.getAttribute("vjoyid"),
+                            type: input.getAttribute("vjoytype"),
+                        });
                         dispatchSequence(inputData.sequence);
                     });
                 } else if (inputData.hasOwnProperty("subcontrol") === true) {
                     input.addEventListener("click", function () {
-                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+                        dispatchRequest({
+                            id: input.getAttribute("vjoyid"),
+                            type: input.getAttribute("vjoytype"),
+                        });
                         dispatchSubControl(inputData.subcontrol);
                     });
                 } else {
                     input.addEventListener("click", function () {
-                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+                        dispatchRequest({
+                            id: input.getAttribute("vjoyid"),
+                            type: input.getAttribute("vjoytype"),
+                        });
                     });
                 }
                 break;
 
             case "hold":
-                console.log("creating listener for button " + (input.getAttribute("vjoyid")));
-                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+                console.log(
+                    "creating listener for button " +
+                        input.getAttribute("vjoyid")
+                );
+                console.log({
+                    id: input.getAttribute("vjoyid"),
+                    type: input.getAttribute("vjoytype"),
+                });
 
-                let inputData2 = userConfig.customInputs.find(item => item.id + "" === id + "");
+                let inputData2 = userConfig.customInputs.find(
+                    (item) => item.id + "" === id + ""
+                );
                 if (inputData2.hasOwnProperty("sequence") === true) {
                     input.addEventListener("click", function () {
-                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
-                        dispatchSequence(inputData2.sequence);
+                        dispatchRequest({
+                            id: input.getAttribute("vjoyid"),
+                            type: input.getAttribute("vjoytype"),
+                        });
+
+                        if (inputData2.delay) {
+                            console.log("delay 1");
+                            console.log(inputData2.delay);
+                            setTimeout(() => {
+                                dispatchSequence(inputData2.sequence);
+                            }, inputData2.delay);
+                        } else {
+                            dispatchSequence(inputData2.sequence);
+                        }
                     });
                 } else {
                     input.addEventListener("click", function () {
-                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype") });
+                        dispatchRequest({
+                            id: input.getAttribute("vjoyid"),
+                            type: input.getAttribute("vjoytype"),
+                        });
                     });
                 }
                 break;
 
             case "toggle":
-                console.log("creating listener for toggle button " + (input.getAttribute("vjoyid")));
-                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), state: input.state });
+                console.log(
+                    "creating listener for toggle button " +
+                        input.getAttribute("vjoyid")
+                );
+                console.log({
+                    id: input.getAttribute("vjoyid"),
+                    type: input.getAttribute("vjoytype"),
+                    state: input.state,
+                });
 
                 input.addEventListener("click", function () {
                     input.classList.toggle("toggledButton");
-                    input.state = input.classList.value.includes("toggledButton");
-                    dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), state: input.state });
+                    input.state =
+                        input.classList.value.includes("toggledButton");
+                    dispatchRequest({
+                        id: input.getAttribute("vjoyid"),
+                        type: input.getAttribute("vjoytype"),
+                        state: input.state,
+                    });
                 });
                 break;
 
             case "pseudotoggle":
-                console.log("creating listener for pseudotoggle button " + (input.getAttribute("vjoyid")));
-                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), state: input.state });
+                console.log(
+                    "creating listener for pseudotoggle button " +
+                        input.getAttribute("vjoyid")
+                );
+                console.log({
+                    id: input.getAttribute("vjoyid"),
+                    type: input.getAttribute("vjoytype"),
+                    state: input.state,
+                });
 
                 input.addEventListener("click", function () {
                     input.classList.toggle("toggledButton");
-                    input.state = input.classList.value.includes("toggledButton");
-                    dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), state: input.state });
+                    input.state =
+                        input.classList.value.includes("toggledButton");
+                    dispatchRequest({
+                        id: input.getAttribute("vjoyid"),
+                        type: input.getAttribute("vjoytype"),
+                        state: input.state,
+                    });
                 });
                 break;
 
             case "slider":
-                console.log("creating listener for slider " + (input.getAttribute("vjoyid")));
-                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), value: input.value });
+                console.log(
+                    "creating listener for slider " +
+                        input.getAttribute("vjoyid")
+                );
+                console.log({
+                    id: input.getAttribute("vjoyid"),
+                    type: input.getAttribute("vjoytype"),
+                    value: input.value,
+                });
 
                 input.addEventListener("input", function () {
-                    dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), value: input.value });
+                    dispatchRequest({
+                        id: input.getAttribute("vjoyid"),
+                        type: input.getAttribute("vjoytype"),
+                        value: input.value,
+                    });
                 });
                 break;
 
             case "repeat":
-                console.log("creating listener for repeat button " + (input.getAttribute("vjoyid")));
-                console.log({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), interval: input.getAttribute("vjoyinterval") });
+                console.log(
+                    "creating listener for repeat button " +
+                        input.getAttribute("vjoyid")
+                );
+                console.log({
+                    id: input.getAttribute("vjoyid"),
+                    type: input.getAttribute("vjoytype"),
+                    interval: input.getAttribute("vjoyinterval"),
+                });
 
                 input.addEventListener("click", function () {
                     input.classList.toggle("repeatButton");
-                    input.state = input.classList.value.includes("repeatButton");
-                    if (input.classList.value.includes("repeatButton") === false) {
+                    input.state =
+                        input.classList.value.includes("repeatButton");
+                    if (
+                        input.classList.value.includes("repeatButton") === false
+                    ) {
                         clearInterval(repeater);
-                    } else if (input.classList.value.includes("repeatButton") === true) {
-                        dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), interval: input.getAttribute("vjoyinterval") });
+                    } else if (
+                        input.classList.value.includes("repeatButton") === true
+                    ) {
+                        dispatchRequest({
+                            id: input.getAttribute("vjoyid"),
+                            type: input.getAttribute("vjoytype"),
+                            interval: input.getAttribute("vjoyinterval"),
+                        });
                     }
                     let repeater = setInterval(() => {
-                        if (input.classList.value.includes("repeatButton") === false) {
+                        if (
+                            input.classList.value.includes("repeatButton") ===
+                            false
+                        ) {
                             clearInterval(repeater);
-                        } else if (input.classList.value.includes("repeatButton") === true) {
-                            dispatchRequest({ id: input.getAttribute("vjoyid"), type: input.getAttribute("vjoytype"), interval: input.getAttribute("vjoyinterval") });
+                        } else if (
+                            input.classList.value.includes("repeatButton") ===
+                            true
+                        ) {
+                            dispatchRequest({
+                                id: input.getAttribute("vjoyid"),
+                                type: input.getAttribute("vjoytype"),
+                                interval: input.getAttribute("vjoyinterval"),
+                            });
                         }
                     }, input.getAttribute("vjoyinterval"));
                 });
@@ -154,37 +264,53 @@ function assignEventListener() {
                 break;
         }
     });
-};
+}
 
 function dispatchRequest(data) {
     console.log(data);
-    postData(`/${data.type}`, data).then(res => {
+    postData(`/${data.type}`, data).then((res) => {
         console.log(res);
     });
-};
+}
 
 function dispatchSequence(input) {
     setTimeout(() => {
         for (let i = 0; i < input.length; i++) {
             setTimeout(function () {
-                let inputData = userConfig.customInputs.find(item => item.id + "" === input[i].id + "");
+                let inputData = userConfig.customInputs.find(
+                    (item) => item.id + "" === input[i].id + ""
+                );
                 inputData.value = input[i].value;
 
-                console.log(input[i].type)
+                console.log(input[i].type);
 
-                if (input[i].type === "toggle" || input[i].type === "pseudotoggle") {
-                    let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
+                if (
+                    input[i].type === "toggle" ||
+                    input[i].type === "pseudotoggle"
+                ) {
+                    let renderedInput = Array.from(
+                        document.querySelectorAll(".input")
+                    ).find(
+                        (item) =>
+                            item.getAttribute("vjoyid") === input[i].id + ""
+                    );
 
-                    console.log(inputData.type + ", state: " + input[i].state)
+                    console.log(inputData.type + ", state: " + input[i].state);
                     switch (input[i].state) {
                         case undefined:
                             renderedInput.classList.toggle("toggledButton");
-                            inputData.state = renderedInput.classList.value.includes("toggledButton");
+                            inputData.state =
+                                renderedInput.classList.value.includes(
+                                    "toggledButton"
+                                );
                             break;
 
                         case true:
                             renderedInput.classList.add("toggledButton");
-                            inputData.state = renderedInput.classList.value.includes("toggledButton");
+                            inputData.state =
+                                renderedInput.classList.value.includes(
+                                    "toggledButton"
+                                );
                             renderedInput.classList.toggle("active");
                             setTimeout(() => {
                                 renderedInput.classList.toggle("active");
@@ -193,7 +319,10 @@ function dispatchSequence(input) {
 
                         case false:
                             renderedInput.classList.remove("toggledButton");
-                            inputData.state = renderedInput.classList.value.includes("toggledButton");
+                            inputData.state =
+                                renderedInput.classList.value.includes(
+                                    "toggledButton"
+                                );
                             renderedInput.classList.add("active");
                             setTimeout(() => {
                                 renderedInput.classList.remove("active");
@@ -205,35 +334,60 @@ function dispatchSequence(input) {
                             break;
                     }
                 } else if (input[i].type === "slider") {
-                    let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
+                    let renderedInput = Array.from(
+                        document.querySelectorAll(".input")
+                    ).find(
+                        (item) =>
+                            item.getAttribute("vjoyid") === input[i].id + ""
+                    );
                     renderedInput.value = input[i].value;
                     renderedInput.classList.toggle("active");
                     setTimeout(() => {
                         renderedInput.classList.toggle("active");
                     }, 100);
                 } else {
-                    let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
+                    let renderedInput = Array.from(
+                        document.querySelectorAll(".input")
+                    ).find(
+                        (item) =>
+                            item.getAttribute("vjoyid") === input[i].id + ""
+                    );
                     renderedInput.classList.toggle("active");
                     setTimeout(() => {
                         renderedInput.classList.toggle("active");
                     }, 100);
                 }
 
-                dispatchRequest({ id: "" + inputData.id, type: inputData.type, value: input[i].value, state: inputData.state });
+                dispatchRequest({
+                    id: "" + inputData.id,
+                    type: inputData.type,
+                    value: input[i].value,
+                    state: inputData.state,
+                });
                 console.log("set sequence state: " + i);
             }, i * 500);
         }
     }, 200);
-};
+}
 
 function dispatchSubControl(input) {
     setTimeout(() => {
         for (let i = 0; i < input.length; i++) {
             setTimeout(function () {
-                let inputData = userConfig.customInputs.find(item => item.id + "" === input[i].id + "");
+                let inputData = userConfig.customInputs.find(
+                    (item) => item.id + "" === input[i].id + ""
+                );
 
-                if (inputData.type === "toggle" || input[i].type === "pseudotoggle") {
-                    let renderedInput = Array.from(document.querySelectorAll(".input")).find(item => item.getAttribute("vjoyid") === input[i].id + "");
+                if (
+                    inputData.type === "toggle" ||
+                    input[i].type === "pseudotoggle"
+                ) {
+                    let renderedInput = Array.from(
+                        document.querySelectorAll(".input")
+                    ).find(
+                        (item) =>
+                            item.getAttribute("vjoyid") === input[i].id + ""
+                    );
                     renderedInput.classList.toggle("toggledButton");
                 }
 
@@ -241,13 +395,13 @@ function dispatchSubControl(input) {
             }, i * 500);
         }
     }, 200);
-};
+}
 
 function stopServer() {
     postData("/stopServer");
-};
+}
 
 function resetServer() {
     window.location.reload();
     postData("/resetServer");
-};
+}
